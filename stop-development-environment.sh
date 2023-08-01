@@ -1,0 +1,1 @@
+docker compose -f stack.yml stop special-octo-fiesta
