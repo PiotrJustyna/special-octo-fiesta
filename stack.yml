@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  special-octo-fiesta:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: special-octo-fiesta
+    container_name: special-octo-fiesta-instance
+    working_dir: /tmp/special-octo-fiesta/
+    volumes:
+      - ./:/tmp/special-octo-fiesta/
+    tty: true
