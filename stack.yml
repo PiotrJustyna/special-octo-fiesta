@@ -8,6 +8,8 @@ services:
     image: special-octo-fiesta
     container_name: special-octo-fiesta-instance
     working_dir: /tmp/special-octo-fiesta/
+    ports:
+      - "9464:9464"
     volumes:
       - ./:/tmp/special-octo-fiesta/
     tty: true

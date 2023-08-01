@@ -2,6 +2,7 @@ STORAGE: NONE
 RESTRICTION: == net7.0
 NUGET
   remote: https://api.nuget.org/v3/index.json
+    FSharp.Core (7.0.300)
     Microsoft.Extensions.Configuration (7.0)
       Microsoft.Extensions.Configuration.Abstractions (>= 7.0)
       Microsoft.Extensions.Primitives (>= 7.0)
@@ -58,6 +59,8 @@ NUGET
     OpenTelemetry.Extensions.Hosting (1.5.1)
       Microsoft.Extensions.Hosting.Abstractions (>= 2.1)
       OpenTelemetry (>= 1.5.1)
+    OpenTelemetry.Instrumentation.Runtime (1.5)
+      OpenTelemetry.Api (>= 1.5 < 2.0)
     System.Diagnostics.DiagnosticSource (7.0.2)
     System.Text.Encodings.Web (7.0)
     System.Text.Json (7.0.3)
