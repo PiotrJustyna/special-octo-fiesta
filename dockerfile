@@ -1,2 +1,2 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0.100-preview.6-alpine3.18-arm64v8
+FROM mcr.microsoft.com/dotnet/sdk:7.0.306-alpine3.18-arm64v8
 
