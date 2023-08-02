@@ -1,2 +1,3 @@
-docker compose -f stack.yml build --no-cache special-octo-fiesta
 docker compose -f stack.yml up -d
+docker compose -f stack.yml exec special-octo-fiesta dotnet tool restore
+docker compose -f stack.yml exec special-octo-fiesta dotnet paket install

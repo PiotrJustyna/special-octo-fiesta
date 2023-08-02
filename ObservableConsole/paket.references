@@ -1,4 +1,3 @@
 OpenTelemetry.Exporter.Console
-OpenTelemetry.Extensions.Hosting
-OpenTelemetry.Instrumentation.Runtime
+Microsoft.Extensions.Logging
 FSharp.Core

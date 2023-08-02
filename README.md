@@ -7,6 +7,7 @@ f# + otel + elk
 * https://opentelemetry.io/docs/instrumentation/net/getting-started/
 * https://learn.microsoft.com/en-us/dotnet/core/diagnostics/observability-with-otel
 * https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/examples/runtime-instrumentation/Program.cs
+* https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/logs/getting-started/README.md
 
 ## how to use
 
