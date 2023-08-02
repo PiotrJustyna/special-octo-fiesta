@@ -9,6 +9,9 @@ f# + otel + elk
 * https://github.com/open-telemetry/opentelemetry-dotnet-contrib/blob/main/examples/runtime-instrumentation/Program.cs
 * https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/logs/getting-started/README.md
 * https://www.twilio.com/blog/build-a-logs-pipeline-in-dotnet-with-opentelemetry
+* https://www.elastic.co/guide/en/enterprise-search/current/logging-view-query-logs.html
+* https://github.com/ty-elastic/otel-logging - it's for java, but still useable
+* https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol/README.md - logs are TODO :D
 
 ## features
 
