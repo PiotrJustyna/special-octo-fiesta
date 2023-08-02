@@ -4,6 +4,5 @@ storage: none
 framework: net7.0
 
 nuget OpenTelemetry.Exporter.Console
-nuget OpenTelemetry.Extensions.Hosting
-nuget OpenTelemetry.Instrumentation.Runtime
+nuget Microsoft.Extensions.Logging
 nuget FSharp.Core
