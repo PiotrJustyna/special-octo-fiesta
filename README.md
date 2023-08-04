@@ -12,6 +12,11 @@ f# + otel + elk
 * https://www.elastic.co/guide/en/enterprise-search/current/logging-view-query-logs.html
 * https://github.com/ty-elastic/otel-logging - it's for java, but still useable
 * https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/src/OpenTelemetry.Exporter.OpenTelemetryProtocol/README.md - logs are TODO :D
+* https://learn.microsoft.com/en-us/dotnet/core/extensions/logging-providers
+* https://www.youtube.com/watch?v=0acSdHJfk64
+* https://www.elastic.co/blog/getting-started-with-the-elastic-stack-and-docker-compose
+* https://github.com/elastic/ecs-dotnet/blob/main/examples/console-with-extensions-logging/docker-compose.yml
+* https://www.youtube.com/watch?v=zp6A5QCW_II
 
 ## features
 

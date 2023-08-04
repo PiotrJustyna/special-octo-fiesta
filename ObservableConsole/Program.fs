@@ -1,40 +1,31 @@
 ﻿open System
-open System.Runtime.InteropServices
+open System.Threading.Tasks
+open Microsoft.Extensions.DependencyInjection
+open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
-open OpenTelemetry.Logs
-open OpenTelemetry.Resources
+open Elastic.Extensions.Logging
 
-let resourceBuilder =
-    ResourceBuilder
-        .CreateDefault()
-        .AddService(
-            "ObservableConsole",
-            "ObservableConsoleNamespace",
-            "1.0.0")
-        .AddTelemetrySdk()
-        .AddAttributes(dict[
-            "host.name", Environment.MachineName
-            "os.description", RuntimeInformation.OSDescription
-            "deployment.environment", "local"])
+type Worker(logger : ILogger<Worker>) =
+    inherit BackgroundService()
+    let _logger = logger
+    override bs.ExecuteAsync stoppingToken =
+        let f : Async<unit> = async {
+            while not stoppingToken.IsCancellationRequested do
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now)
+                do! Async.Sleep(1000)
+        }
+        // ExecuteAsync needs to return a task, hence up-cast from Task<unit> to plain Task.
+        Async.StartAsTask f :> Task
 
-let loggerFactory = LoggerFactory.Create(fun builder ->
+let CreateHostBuilder argv : IHostBuilder =
+    let builder = Host.CreateDefaultBuilder(argv)
+
     builder
-        .AddOpenTelemetry(fun options ->
-            options
-                .SetResourceBuilder(resourceBuilder)
-                .AddConsoleExporter() |> ignore
-            options.IncludeFormattedMessage <- true
-            options.IncludeScopes <- true
-            options.ParseStateValues <- true
-            ()) |> ignore
-    ())
+        .ConfigureLogging(fun (loggingBuilder: ILoggingBuilder) -> loggingBuilder.AddElasticsearch() |> ignore)
+        .ConfigureServices(fun (services: IServiceCollection) -> services.AddHostedService<Worker>() |> ignore)
 
-let logger = loggerFactory.CreateLogger<obj>();
-
-logger.LogInformation(
-    123,
-    "Hello from {name} {price}.",
-    "tomato",
-    2.99)
-
-printfn "Hello from F#"
+[<EntryPoint>]
+let main argv =
+    let hostBuilder = CreateHostBuilder argv
+    hostBuilder.Build().Run()
+    0 // return an integer exit code
