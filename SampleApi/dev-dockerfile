@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+
+# --- input ---------------------------------- #
+
+ARG USER_NAME=local_developer
+
+ARG USER_GROUP_NAME=local_developer_group
+
+# --- non-root user creation ----------------- #
+
+RUN groupadd "$USER_GROUP_NAME"
+
+RUN useradd -g "$USER_GROUP_NAME" -m "$USER_NAME"
+
+USER "$USER_NAME"

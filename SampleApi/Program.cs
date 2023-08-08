@@ -5,14 +5,14 @@ using Serilog.Sinks.Elasticsearch;
 using System;
 using System.Reflection;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+var builder = WebApplication
+    .CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 ConfigureLogging();
-builder.Host.UseSerilog();
+builder.Host
+    .UseSerilog();
 
 var app = builder.Build();
 

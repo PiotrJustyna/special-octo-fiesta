@@ -26,9 +26,27 @@ services:
     networks:
       - elastic
 
+  api:
+    container_name: sample-api-instance
+    build:
+      context: .
+      dockerfile: dev-dockerfile
+    image: sample-api
+    working_dir: /tmp/sample-api
+    volumes:
+      - .:/tmp/sample-api
+    tty: true
+    depends_on:
+      - kibana
+    ports:
+      - 5176:5176
+    networks:
+      - elastic
+
 networks:
   elastic:
     driver: bridge
 
 volumes:
   elasticsearch-data:
+  .:
