@@ -1,27 +1,28 @@
 using Serilog;
-using Serilog.AspNetCore;
+using Serilog.Configuration;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
 using System;
 using System.Reflection;
+using SampleWorker;
 
-var builder = WebApplication
-    .CreateBuilder(args);
-
-builder.Services.AddControllers();
+IHostBuilder hostBuilder = Host.CreateDefaultBuilder(args);
 
 ConfigureLogging();
-builder.Host.UseSerilog();
 
-var app = builder.Build();
+IHost host = hostBuilder
+    .ConfigureServices(services =>
+    {
+        services.AddHostedService<Worker>();
+    })
+    .UseSerilog()
+    .Build();
 
-app.MapControllers();
-
-app.Run();
+await host.RunAsync();
 
 void ConfigureLogging()
 {
-    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    var environment = Environment.GetEnvironmentVariable("ENVIRONMENT");
 
     var configuration =
         new ConfigurationBuilder()
