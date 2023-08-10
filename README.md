@@ -17,6 +17,12 @@ f# + otel + elk
 * https://www.elastic.co/blog/getting-started-with-the-elastic-stack-and-docker-compose
 * https://github.com/elastic/ecs-dotnet/blob/main/examples/console-with-extensions-logging/docker-compose.yml
 * https://www.youtube.com/watch?v=zp6A5QCW_II
+* https://www.elastic.co/blog/3-models-logging-opentelemetry-elastic
+  * good presentation material
+  * opentelemetry includes provisions for span events
+  * elastic common schema - but that does not apply to logs collected via otlp instrumentation. In that case, logs remain formatted in otel log semantics. But ECS is to become the standard for log semantics [2023-04-18 article](https://www.elastic.co/blog/ecs-elastic-common-schema-otel-opentelemetry-announcement)
+  * Conversion to ECS happens within Elastic keeping log data vendor-agnostic until ingestion
+* https://opentelemetry.io/docs/instrumentation/#status-and-releases - opentelemetry instrumentation library seems to be stable, especially for dotnet
 
 ## features
 

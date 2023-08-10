@@ -2,6 +2,7 @@ using Serilog;
 using Serilog.Configuration;
 using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
+using Serilog.Sinks.OpenTelemetry;
 using System;
 using System.Reflection;
 using SampleWorker;
@@ -36,7 +37,12 @@ void ConfigureLogging()
         .Enrich.WithExceptionDetails()
         .WriteTo.Debug()
         .WriteTo.Console()
-        .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment))
+        .WriteTo.OpenTelemetry(options =>
+        {
+            options.Endpoint = "http://els:9200";
+            options.Protocol = OtlpProtocol.Grpc;
+        })
+//        .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment))
         .Enrich.WithProperty("Environment", environment)
         .ReadFrom.Configuration(configuration)
         .CreateLogger();
