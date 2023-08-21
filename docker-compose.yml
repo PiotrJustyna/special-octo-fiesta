@@ -2,8 +2,8 @@ version: '3.1'
 
 services:
   elasticsearch:
-    container_name: els
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
+    container_name: elasticsearch-instance
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.1
     ports:
       - 9200:9200
     volumes:
@@ -15,8 +15,8 @@ services:
       - elastic
 
   kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:8.7.1
+    container_name: kibana-instance
+    image: docker.elastic.co/kibana/kibana:8.8.1
     ports:
       - 5601:5601
     depends_on:
@@ -27,7 +27,7 @@ services:
       - elastic
 
   worker:
-    container_name: sample-worker-instance
+    container_name: worker-instance
     build:
       context: .
       dockerfile: dev-dockerfile

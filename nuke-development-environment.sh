@@ -1,13 +1,11 @@
-docker compose -f stack.yml stop special-octo-fiesta
-docker compose -f stack.yml stop setup
-docker compose -f stack.yml stop kibana
-docker compose -f stack.yml stop es01
+docker compose -f docker-compose.yml stop worker
+docker compose -f docker-compose.yml stop kibana
+docker compose -f docker-compose.yml stop elasticsearch
 
-docker rm observable-console-instance
-docker rm setup-instance
-docker rm kib01-instance
-docker rm es01-instance
+docker rm worker-instance
+docker rm kibana-instance
+docker rm elasticsearch-instance
 
-docker rmi -f special-octo-fiesta
-docker rmi -f kibana:8.7.1
-docker rmi -f elasticsearch:8.7.1
+docker rmi -f worker
+docker rmi -f docker.elastic.co/kibana/kibana:8.8.1
+docker rmi -f docker.elastic.co/elasticsearch/elasticsearch:8.8.1

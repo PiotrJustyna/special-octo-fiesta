@@ -1,1 +1,1 @@
-docker compose -f stack.yml exec special-octo-fiesta dotnet build
+docker compose -f docker-compose.yml exec worker dotnet build

@@ -1,9 +1,0 @@
-source https://api.nuget.org/v3/index.json
-
-storage: none
-framework: net7.0
-
-nuget Microsoft.Extensions.Hosting
-nuget Microsoft.Extensions.Logging
-nuget FSharp.Core
-nuget Elastic.Extensions.Logging

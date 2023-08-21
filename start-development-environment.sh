@@ -1,1 +1,2 @@
-docker compose -f stack.yml up -d
+docker compose -f docker-compose.yml build --no-cache worker
+docker compose -f docker-compose.yml up -d

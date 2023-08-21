@@ -1,6 +1,99 @@
 # special-octo-fiesta
 
-f# + otel + elk
+A simplified, batteries included, local logging setup of:
+
+* f# worker service
+* elasticsearch
+* kibana
+* docker compose
+
+This should help you configure propagation of logs for the elk stack (logstash excluded). The setup does not include more advanced log shipping elk mechanisms like logstash/filebeat.
+
+This repository started as an attempt to configure otel logs with the elk stack, but the setup is was complex that I realised there could be value in skipping otel for now and demonstrating how simple the configuration could be if we only use the serilog-to-elasticsearch sink. This is by no means production grade setup, but it shows concisely how to set logging up. You can experiment furtner by building on top of this code.
+
+## features
+
+### logs
+
+#### console
+
+```bash
+hello logging
+[10:11:10 INF] Application started. Press Ctrl+C to shut down.
+[10:11:10 INF] Worker running at: 08/21/2023 10:11:10 +00:00
+[10:11:10 INF] Hosting environment: Production
+[10:11:10 INF] Content root path: /tmp/sample-worker
+[10:11:11 INF] Worker running at: 08/21/2023 10:11:11 +00:00
+[10:11:12 INF] Worker running at: 08/21/2023 10:11:12 +00:00
+[10:11:13 INF] Worker running at: 08/21/2023 10:11:13 +00:00
+```
+
+#### kibana
+
+```json
+{
+  "@timestamp": [
+    "2023-08-21T10:11:26.331Z"
+  ],
+  "fields.Environment": [
+    "Development"
+  ],
+  "fields.Environment.raw": [
+    "Development"
+  ],
+  "fields.SourceContext": [
+    "SampleFSharpWorker.Workers.Worker"
+  ],
+  "fields.SourceContext.raw": [
+    "SampleFSharpWorker.Workers.Worker"
+  ],
+  "fields.time": [
+    "2023-08-21T10:11:26.331Z"
+  ],
+  "level": [
+    "Information"
+  ],
+  "level.raw": [
+    "Information"
+  ],
+  "message": [
+    "Worker running at: 08/21/2023 10:11:26 +00:00"
+  ],
+  "messageTemplate": [
+    "Worker running at: {time}"
+  ],
+  "messageTemplate.raw": [
+    "Worker running at: {time}"
+  ],
+  "_id": "umGTF4oBiYOsWcb28gvo",
+  "_index": "samplefsharpworker-development-2023-08",
+  "_score": null
+}
+```
+
+## how to use
+
+* `./start-development-environment.sh`
+* `./stop-development-environment.sh`
+* `./build.sh`
+* `./run.sh`
+* `./nuke-development-environment.sh`
+
+### kibana
+
+* http://localhost:5601/app/discover#/?_g=()
+* main menu -> analytics -> discover
+* create data view
+  * index name
+  * index pattern
+  * timestamp field
+  * save data view to kibana
+
+  ![create data view](./img/kibana-data-view.png)
+* main menu -> analytics -> discover
+  * browse your logs
+
+  ![discover](./img/kibana-discover.png)
 
 ## resources used
 
@@ -23,44 +116,3 @@ f# + otel + elk
   * elastic common schema - but that does not apply to logs collected via otlp instrumentation. In that case, logs remain formatted in otel log semantics. But ECS is to become the standard for log semantics [2023-04-18 article](https://www.elastic.co/blog/ecs-elastic-common-schema-otel-opentelemetry-announcement)
   * Conversion to ECS happens within Elastic keeping log data vendor-agnostic until ingestion
 * https://opentelemetry.io/docs/instrumentation/#status-and-releases - opentelemetry instrumentation library seems to be stable, especially for dotnet
-
-## features
-
-### logs
-
-#### console exporter
-
-```bash
-LogRecord.Timestamp:               2023-08-02T10:33:29.6551132Z
-LogRecord.CategoryName:            object
-LogRecord.LogLevel:                Information
-LogRecord.FormattedMessage:        Hello from tomato 2.99.
-LogRecord.Body:                    Hello from {name} {price}.
-LogRecord.Attributes (Key:Value):
-    name: tomato
-    price: 2.99
-    OriginalFormat (a.k.a Body): Hello from {name} {price}.
-LogRecord.EventId:                 123
-
-Resource associated with LogRecord:
-host.name: 4d4ec2fca7df
-os.description: Linux 5.15.49-linuxkit-pr #1 SMP PREEMPT Thu May 25 07:27:39 UTC 2023
-deployment.environment: local
-telemetry.sdk.name: opentelemetry
-telemetry.sdk.language: dotnet
-telemetry.sdk.version: 1.5.1
-service.name: ObservableConsole
-service.namespace: ObservableConsoleNamespace
-service.version: 1.0.0
-service.instance.id: f95e69ae-4277-4d7e-98d6-92147d86dd5c
-```
-
-## how to use
-
-* `./start-development-environment.sh`
-* `./build.sh`
-* `./run.sh`
-
-## additional notes
-
-* there's also this nuget, possibly worth exploring in the future: `OpenTelemetry.Instrumentation.Process`
