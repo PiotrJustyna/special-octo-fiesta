@@ -67,4 +67,4 @@ let main argv =
             .Build()
             .Run()
     
-    0 // return an integer exit code
+    0

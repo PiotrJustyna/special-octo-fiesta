@@ -2,13 +2,13 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 
 ENV ENVIRONMENT=Development
 
-# --- input ---------------------------------- #
+# --- input ------------------------------------ #
 
 ARG USER_NAME=local_developer
 
 ARG USER_GROUP_NAME=local_developer_group
 
-# --- non-root user creation ----------------- #
+# --- non-root user creation ------------------- #
 
 RUN groupadd "$USER_GROUP_NAME"
 
